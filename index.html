@@ -39,10 +39,9 @@
       padding: 22px 18px;
       border-radius: 20px;
       margin-bottom: 14px;
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.22);
     }
 
-    header h1 { margin: 0 0 6px; font-size: 1.55rem; line-height: 1.2; }
+    header h1 { margin: 0 0 6px; font-size: 1.55rem; }
     header p { margin: 0; opacity: 0.95; }
 
     .summary {
@@ -56,7 +55,6 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 18px;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
     }
 
     .summary-card { padding: 13px; }
@@ -67,12 +65,12 @@
       font-size: 0.76rem;
       margin-bottom: 3px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
 
-    .summary-card strong { font-size: 0.98rem; }
-
-    .trip-card, .plan-card { margin-bottom: 16px; padding: 0; overflow: hidden; }
+    .trip-card, .plan-card {
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
 
     .section-header {
       padding: 16px;
@@ -80,7 +78,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .section-header h2 { margin: 0 0 5px; font-size: 1.18rem; }
+    .section-header h2 { margin: 0 0 5px; }
 
     .section-header p {
       margin: 3px 0;
@@ -88,17 +86,18 @@
       font-size: 0.94rem;
     }
 
-    .car-card { margin: 14px; padding: 14px; }
+    .car-card {
+      margin: 14px;
+      padding: 14px;
+    }
 
     .car-title {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
       align-items: flex-start;
+      gap: 10px;
       margin-bottom: 8px;
     }
-
-    .car-title h3 { margin: 0; font-size: 1.08rem; }
 
     .badge {
       background: #eef2ff;
@@ -107,10 +106,13 @@
       padding: 4px 9px;
       font-size: 0.78rem;
       font-weight: 700;
-      white-space: nowrap;
     }
 
-    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; }
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
 
     .sequence-note {
       background: var(--warning-bg);
@@ -122,7 +124,11 @@
       margin-bottom: 10px;
     }
 
-    .stop-list, .timeline { list-style: none; margin: 0; padding: 0; }
+    .stop-list, .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
     .stop {
       display: grid;
@@ -145,31 +151,37 @@
       justify-content: center;
       font-size: 0.82rem;
       font-weight: 700;
-      margin-top: 2px;
     }
 
-    .person { font-weight: 700; margin-bottom: 2px; }
-    .area, .detail { color: var(--muted); font-size: 0.91rem; }
+    .person {
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
 
-    .destination {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px dashed var(--border);
-      font-size: 0.92rem;
+    .detail {
       color: var(--muted);
+      font-size: 0.91rem;
     }
 
     .timeline-item {
       display: grid;
-      grid-template-columns: 76px 1fr;
+      grid-template-columns: 90px 1fr;
       gap: 10px;
       padding: 14px;
       border-top: 1px solid var(--border);
     }
 
     .timeline-item:first-child { border-top: none; }
-    .time { font-weight: 800; color: var(--accent); font-size: 0.95rem; }
-    .activity { font-weight: 700; margin-bottom: 3px; }
+
+    .time {
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .activity {
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
 
     .status {
       display: inline-block;
@@ -201,10 +213,9 @@
     }
 
     @media (max-width: 520px) {
-      .page { padding: 12px; }
       .summary { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
       .car-title { flex-direction: column; }
-      .timeline-item { grid-template-columns: 1fr; gap: 3px; }
     }
   </style>
 </head>
@@ -216,8 +227,8 @@
     </header>
 
     <section class="summary">
-      <div class="summary-card"><span>Going</span><strong>Monday, 18 May 2026</strong></div>
-      <div class="summary-card"><span>Returning</span><strong>Friday, 22 May 2026</strong></div>
+      <div class="summary-card"><span>Going</span><strong>18 May 2026</strong></div>
+      <div class="summary-card"><span>Returning</span><strong>22 May 2026</strong></div>
       <div class="summary-card"><span>First Pickup</span><strong>5:00 AM</strong></div>
       <div class="summary-card"><span>Vehicle</span><strong>Alphard / Vellfire</strong></div>
     </section>
@@ -225,9 +236,7 @@
     <section class="trip-card">
       <div class="section-header">
         <h2>Singapore → Kuala Lumpur</h2>
-        <p><strong>Date:</strong> Monday, 18 May 2026</p>
-        <p><strong>First pickup:</strong> 5:00 AM</p>
-        <p><strong>Destination:</strong> KL M World Hotel PJ</p>
+        <p>Monday, 18 May 2026</p>
       </div>
 
       <article class="car-card">
@@ -235,14 +244,16 @@
           <h3>Car 1 Pickup Sequence</h3>
           <span class="badge">SGD 370</span>
         </div>
-        <div class="meta">Pax: 5</div>
-        <div class="sequence-note">Please be ready before your turn. Timing after the first pickup depends on traffic, immigration clearance and waiting time at earlier stops.</div>
+
+        <div class="sequence-note">
+          Please be ready before your turn. Timing depends on traffic and immigration clearance.
+        </div>
+
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Jim & Ren</div><div class="area">Bayshore / Costa del Sol area</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="area">Leith Park area</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Albert & Veron</div><div class="area">Rivervale / Sengkang area</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Jim & Ren</div><div class="detail">Bayshore / Costa del Sol</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="detail">Leith Park</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Albert & Veron</div><div class="detail">Rivervale</div></div></li>
         </ol>
-        <div class="destination"><strong>Then proceed to:</strong> KL M World Hotel PJ</div>
       </article>
 
       <article class="car-card">
@@ -250,51 +261,57 @@
           <h3>Car 2 Pickup Sequence</h3>
           <span class="badge">SGD 390</span>
         </div>
-        <div class="meta">Pax: 5</div>
-        <div class="sequence-note">Please be ready before your turn. Timing after the first pickup depends on traffic, immigration clearance and waiting time at earlier stops.</div>
+
+        <div class="sequence-note">
+          Please be ready before your turn. Timing depends on traffic and immigration clearance.
+        </div>
+
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Joseph</div><div class="area">Yio Chu Kang Gardens area</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Leonard</div><div class="area">Bright Hill area</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="area">Shunfu area</div></div></li>
-          <li class="stop"><div class="number">4</div><div><div class="person">Honey</div><div class="area">Commonwealth Close area</div></div></li>
-          <li class="stop"><div class="number">5</div><div><div class="person">Germaine</div><div class="area">Westwood Drive area</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Joseph</div><div class="detail">Yio Chu Kang Gardens</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Leonard</div><div class="detail">Bright Hill</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="detail">Shunfu</div></div></li>
+          <li class="stop"><div class="number">4</div><div><div class="person">Honey</div><div class="detail">Commonwealth Close</div></div></li>
+          <li class="stop"><div class="number">5</div><div><div class="person">Germaine</div><div class="detail">Westwood Drive</div></div></li>
         </ol>
-        <div class="destination"><strong>Then proceed to:</strong> KL M World Hotel PJ</div>
       </article>
     </section>
 
     <section class="plan-card">
       <div class="section-header">
-        <h2>Monday, 18 May 2026 Plan</h2>
-        <p>Arrival day activities after reaching KL.</p>
+        <h2>18 May 2026 Plans</h2>
+        <p>Arrival day activities in KL.</p>
       </div>
+
       <ul class="timeline">
         <li class="timeline-item">
           <div class="time">Arrival</div>
           <div>
             <div class="activity">Reach KL M World Hotel PJ</div>
-            <div class="detail">Leave bags with hotel concierge first.</div>
+            <div class="detail">Leave bags with concierge first.</div>
           </div>
         </li>
+
         <li class="timeline-item">
-          <div class="time">~11:00 AM</div>
+          <div class="time">~11 AM</div>
           <div>
-            <div class="activity">Grab to cousin's house for brunch</div>
-            <div class="detail">Timing depends on what time we reach the hotel.</div>
+            <div class="activity">Brunch at Roland's house</div>
+            <div class="detail">We will Grab over after reaching the hotel.</div>
           </div>
         </li>
+
         <li class="timeline-item">
-          <div class="time">By 2:00 PM</div>
+          <div class="time">By 2 PM</div>
           <div>
-            <div class="activity">Return to hotel by Grab</div>
-            <div class="detail">Target to be back by 2:00 PM. Hopefully some rooms will be ready for check-in before pickleball.</div>
+            <div class="activity">Return to hotel</div>
+            <div class="detail">Hopefully some rooms will be ready for check-in before pickleball.</div>
           </div>
         </li>
+
         <li class="timeline-item">
-          <div class="time">3:00–5:00 PM</div>
+          <div class="time">3–5 PM</div>
           <div>
-            <div class="activity">Pickleball session</div>
-            <div class="detail">Venue: The Pickle Grounds</div>
+            <div class="activity">Pickleball Session</div>
+            <div class="detail">The Pickle Grounds · Courts 8 & 9</div>
             <span class="status">Booked</span>
           </div>
         </li>
@@ -304,9 +321,8 @@
     <section class="trip-card">
       <div class="section-header">
         <h2>Kuala Lumpur → Singapore</h2>
-        <p><strong>Date:</strong> Friday, 22 May 2026</p>
-        <p><strong>Pickup:</strong> KL M World Hotel PJ</p>
-        <p><strong>Pickup time:</strong> TBC</p>
+        <p>Friday, 22 May 2026</p>
+        <p>Pickup time: TBC</p>
       </div>
 
       <article class="car-card">
@@ -314,11 +330,11 @@
           <h3>Car 1 Drop-off Sequence</h3>
           <span class="badge">SGD 370</span>
         </div>
-        <div class="meta">Pax: 5</div>
+
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Albert & Veron</div><div class="area">Rivervale / Sengkang area</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="area">Leith Park area</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Jim & Ren</div><div class="area">Bayshore / Costa del Sol area</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Albert & Veron</div><div class="detail">Rivervale</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="detail">Leith Park</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Jim & Ren</div><div class="detail">Bayshore / Costa del Sol</div></div></li>
         </ol>
       </article>
 
@@ -327,24 +343,23 @@
           <h3>Car 2 Drop-off Sequence</h3>
           <span class="badge">SGD 390</span>
         </div>
-        <div class="meta">Pax: 5</div>
+
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Germaine</div><div class="area">Westwood Drive area</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Honey</div><div class="area">Commonwealth Close area</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="area">Shunfu area</div></div></li>
-          <li class="stop"><div class="number">4</div><div><div class="person">Leonard</div><div class="area">Bright Hill area</div></div></li>
-          <li class="stop"><div class="number">5</div><div><div class="person">Joseph</div><div class="area">Yio Chu Kang Gardens area</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Germaine</div><div class="detail">Westwood Drive</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Honey</div><div class="detail">Commonwealth Close</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="detail">Shunfu</div></div></li>
+          <li class="stop"><div class="number">4</div><div><div class="person">Leonard</div><div class="detail">Bright Hill</div></div></li>
+          <li class="stop"><div class="number">5</div><div><div class="person">Joseph</div><div class="detail">Yio Chu Kang Gardens</div></div></li>
         </ol>
       </article>
     </section>
 
     <div class="note">
-      Full addresses and mobile numbers are intentionally omitted from this public page. Drivers will receive those details separately.
-      Return pickup time from KL M World Hotel PJ is still to be confirmed.
+      Full addresses and phone numbers are intentionally omitted from this public page.
     </div>
 
     <footer>
-      Public itinerary version · Last updated: 15 May 2026
+      Last updated: 15 May 2026
     </footer>
   </main>
 </body>
