@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KL Transport Itinerary</title>
+  <title>KL Trip Itinerary</title>
   <style>
     :root {
       --bg: #f6f7f9;
@@ -16,6 +16,9 @@
       --warning-bg: #fffbeb;
       --warning-border: #fde68a;
       --warning-text: #92400e;
+      --green-bg: #ecfdf5;
+      --green-text: #065f46;
+      --green-border: #a7f3d0;
     }
 
     * { box-sizing: border-box; }
@@ -28,11 +31,7 @@
       line-height: 1.45;
     }
 
-    .page {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 14px;
-    }
+    .page { max-width: 760px; margin: 0 auto; padding: 14px; }
 
     header {
       background: linear-gradient(135deg, #1d4ed8, #2563eb);
@@ -43,12 +42,7 @@
       box-shadow: 0 8px 24px rgba(37, 99, 235, 0.22);
     }
 
-    header h1 {
-      margin: 0 0 6px;
-      font-size: 1.55rem;
-      line-height: 1.2;
-    }
-
+    header h1 { margin: 0 0 6px; font-size: 1.55rem; line-height: 1.2; }
     header p { margin: 0; opacity: 0.95; }
 
     .summary {
@@ -58,9 +52,7 @@
       margin-bottom: 14px;
     }
 
-    .summary-card,
-    .trip-card,
-    .car-card {
+    .summary-card, .trip-card, .car-card, .plan-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 18px;
@@ -80,33 +72,23 @@
 
     .summary-card strong { font-size: 0.98rem; }
 
-    .trip-card {
-      margin-bottom: 16px;
-      padding: 0;
-      overflow: hidden;
-    }
+    .trip-card, .plan-card { margin-bottom: 16px; padding: 0; overflow: hidden; }
 
-    .trip-header {
+    .section-header {
       padding: 16px;
       background: var(--accent-light);
       border-bottom: 1px solid var(--border);
     }
 
-    .trip-header h2 {
-      margin: 0 0 5px;
-      font-size: 1.18rem;
-    }
+    .section-header h2 { margin: 0 0 5px; font-size: 1.18rem; }
 
-    .trip-header p {
+    .section-header p {
       margin: 3px 0;
       color: var(--muted);
       font-size: 0.94rem;
     }
 
-    .car-card {
-      margin: 14px;
-      padding: 14px;
-    }
+    .car-card { margin: 14px; padding: 14px; }
 
     .car-title {
       display: flex;
@@ -116,10 +98,7 @@
       margin-bottom: 8px;
     }
 
-    .car-title h3 {
-      margin: 0;
-      font-size: 1.08rem;
-    }
+    .car-title h3 { margin: 0; font-size: 1.08rem; }
 
     .badge {
       background: #eef2ff;
@@ -131,11 +110,7 @@
       white-space: nowrap;
     }
 
-    .meta {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-    }
+    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; }
 
     .sequence-note {
       background: var(--warning-bg);
@@ -147,11 +122,7 @@
       margin-bottom: 10px;
     }
 
-    .stop-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+    .stop-list, .timeline { list-style: none; margin: 0; padding: 0; }
 
     .stop {
       display: grid;
@@ -177,15 +148,8 @@
       margin-top: 2px;
     }
 
-    .person {
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .address, .phone {
-      color: var(--muted);
-      font-size: 0.91rem;
-    }
+    .person { font-weight: 700; margin-bottom: 2px; }
+    .area, .detail { color: var(--muted); font-size: 0.91rem; }
 
     .destination {
       margin-top: 10px;
@@ -193,6 +157,30 @@
       border-top: 1px dashed var(--border);
       font-size: 0.92rem;
       color: var(--muted);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 10px;
+      padding: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .timeline-item:first-child { border-top: none; }
+    .time { font-weight: 800; color: var(--accent); font-size: 0.95rem; }
+    .activity { font-weight: 700; margin-bottom: 3px; }
+
+    .status {
+      display: inline-block;
+      margin-top: 6px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      color: var(--green-text);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
     }
 
     .note {
@@ -216,13 +204,14 @@
       .page { padding: 12px; }
       .summary { grid-template-columns: 1fr; }
       .car-title { flex-direction: column; }
+      .timeline-item { grid-template-columns: 1fr; gap: 3px; }
     }
   </style>
 </head>
 <body>
   <main class="page">
     <header>
-      <h1>KL Transport Itinerary</h1>
+      <h1>KL Trip Itinerary</h1>
       <p>Singapore ⇄ KL M World Hotel PJ</p>
     </header>
 
@@ -234,7 +223,7 @@
     </section>
 
     <section class="trip-card">
-      <div class="trip-header">
+      <div class="section-header">
         <h2>Singapore → Kuala Lumpur</h2>
         <p><strong>Date:</strong> Monday, 18 May 2026</p>
         <p><strong>First pickup:</strong> 5:00 AM</p>
@@ -246,12 +235,12 @@
           <h3>Car 1 Pickup Sequence</h3>
           <span class="badge">SGD 370</span>
         </div>
-        <div class="meta">Main contact: Albert · Pax: 5</div>
-        <div class="sequence-note">Please be ready before your turn. Timing after the first pickup depends on traffic and waiting time at earlier stops.</div>
+        <div class="meta">Pax: 5</div>
+        <div class="sequence-note">Please be ready before your turn. Timing after the first pickup depends on traffic, immigration clearance and waiting time at earlier stops.</div>
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Jim & Ren</div><div class="address">68 Bayshore Road, Costa del Sol #28-04, S469986</div><div class="phone">+65 9633 6517</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="address">19 Leith Park, S547941</div><div class="phone">+65 9681 0233</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Albert & Veron</div><div class="address">10 Rivervale Link, S545044</div><div class="phone">+65 9017 8288</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Jim & Ren</div><div class="area">Bayshore / Costa del Sol area</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="area">Leith Park area</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Albert & Veron</div><div class="area">Rivervale / Sengkang area</div></div></li>
         </ol>
         <div class="destination"><strong>Then proceed to:</strong> KL M World Hotel PJ</div>
       </article>
@@ -261,21 +250,59 @@
           <h3>Car 2 Pickup Sequence</h3>
           <span class="badge">SGD 390</span>
         </div>
-        <div class="meta">Main contact: Albert · Pax: 5</div>
-        <div class="sequence-note">Please be ready before your turn. Timing after the first pickup depends on traffic and waiting time at earlier stops.</div>
+        <div class="meta">Pax: 5</div>
+        <div class="sequence-note">Please be ready before your turn. Timing after the first pickup depends on traffic, immigration clearance and waiting time at earlier stops.</div>
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Joseph</div><div class="address">47 Yio Chu Kang Gardens, S568094</div><div class="phone">+65 8183 7777</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Leonard</div><div class="address">43 Bright Hill Drive, S573894</div><div class="phone">+62 81 2700 1299</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="address">16 Shunfu Road #03-61, S575749</div><div class="phone">+65 9181 9660</div></div></li>
-          <li class="stop"><div class="number">4</div><div><div class="person">Honey</div><div class="address">83 Commonwealth Close, S140083</div><div class="phone">+65 9681 1444</div></div></li>
-          <li class="stop"><div class="number">5</div><div><div class="person">Germaine</div><div class="address">31 Westwood Dr, S648849</div><div class="phone">+65 9738 5443</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Joseph</div><div class="area">Yio Chu Kang Gardens area</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Leonard</div><div class="area">Bright Hill area</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="area">Shunfu area</div></div></li>
+          <li class="stop"><div class="number">4</div><div><div class="person">Honey</div><div class="area">Commonwealth Close area</div></div></li>
+          <li class="stop"><div class="number">5</div><div><div class="person">Germaine</div><div class="area">Westwood Drive area</div></div></li>
         </ol>
         <div class="destination"><strong>Then proceed to:</strong> KL M World Hotel PJ</div>
       </article>
     </section>
 
+    <section class="plan-card">
+      <div class="section-header">
+        <h2>Monday, 18 May 2026 Plan</h2>
+        <p>Arrival day activities after reaching KL.</p>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <div class="time">Arrival</div>
+          <div>
+            <div class="activity">Reach KL M World Hotel PJ</div>
+            <div class="detail">Leave bags with hotel concierge first.</div>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="time">~11:00 AM</div>
+          <div>
+            <div class="activity">Grab to cousin's house for brunch</div>
+            <div class="detail">Timing depends on what time we reach the hotel.</div>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="time">By 2:00 PM</div>
+          <div>
+            <div class="activity">Return to hotel by Grab</div>
+            <div class="detail">Target to be back by 2:00 PM. Hopefully some rooms will be ready for check-in before pickleball.</div>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="time">3:00–5:00 PM</div>
+          <div>
+            <div class="activity">Pickleball session</div>
+            <div class="detail">Venue: The Pickle Grounds</div>
+            <span class="status">Booked</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
     <section class="trip-card">
-      <div class="trip-header">
+      <div class="section-header">
         <h2>Kuala Lumpur → Singapore</h2>
         <p><strong>Date:</strong> Friday, 22 May 2026</p>
         <p><strong>Pickup:</strong> KL M World Hotel PJ</p>
@@ -287,11 +314,11 @@
           <h3>Car 1 Drop-off Sequence</h3>
           <span class="badge">SGD 370</span>
         </div>
-        <div class="meta">Main contact: Albert · Pax: 5</div>
+        <div class="meta">Pax: 5</div>
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Albert & Veron</div><div class="address">10 Rivervale Link, S545044</div><div class="phone">+65 9017 8288</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="address">19 Leith Park, S547941</div><div class="phone">+65 9681 0233</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Jim & Ren</div><div class="address">68 Bayshore Road, Costa del Sol #28-04, S469986</div><div class="phone">+65 9633 6517</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Albert & Veron</div><div class="area">Rivervale / Sengkang area</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Tony</div><div class="area">Leith Park area</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Jim & Ren</div><div class="area">Bayshore / Costa del Sol area</div></div></li>
         </ol>
       </article>
 
@@ -300,23 +327,24 @@
           <h3>Car 2 Drop-off Sequence</h3>
           <span class="badge">SGD 390</span>
         </div>
-        <div class="meta">Main contact: Albert · Pax: 5</div>
+        <div class="meta">Pax: 5</div>
         <ol class="stop-list">
-          <li class="stop"><div class="number">1</div><div><div class="person">Germaine</div><div class="address">31 Westwood Dr, S648849</div><div class="phone">+65 9738 5443</div></div></li>
-          <li class="stop"><div class="number">2</div><div><div class="person">Honey</div><div class="address">83 Commonwealth Close, S140083</div><div class="phone">+65 9681 1444</div></div></li>
-          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="address">16 Shunfu Road #03-61, S575749</div><div class="phone">+65 9181 9660</div></div></li>
-          <li class="stop"><div class="number">4</div><div><div class="person">Leonard</div><div class="address">43 Bright Hill Drive, S573894</div><div class="phone">+62 81 2700 1299</div></div></li>
-          <li class="stop"><div class="number">5</div><div><div class="person">Joseph</div><div class="address">47 Yio Chu Kang Gardens, S568094</div><div class="phone">+65 8183 7777</div></div></li>
+          <li class="stop"><div class="number">1</div><div><div class="person">Germaine</div><div class="area">Westwood Drive area</div></div></li>
+          <li class="stop"><div class="number">2</div><div><div class="person">Honey</div><div class="area">Commonwealth Close area</div></div></li>
+          <li class="stop"><div class="number">3</div><div><div class="person">Jon</div><div class="area">Shunfu area</div></div></li>
+          <li class="stop"><div class="number">4</div><div><div class="person">Leonard</div><div class="area">Bright Hill area</div></div></li>
+          <li class="stop"><div class="number">5</div><div><div class="person">Joseph</div><div class="area">Yio Chu Kang Gardens area</div></div></li>
         </ol>
       </article>
     </section>
 
     <div class="note">
-      Return pickup time from KL M World Hotel PJ is still to be confirmed. This page can be updated once the time is confirmed.
+      Full addresses and mobile numbers are intentionally omitted from this public page. Drivers will receive those details separately.
+      Return pickup time from KL M World Hotel PJ is still to be confirmed.
     </div>
 
     <footer>
-      Transport arranged via MPV Taxi - Vincent / W(O)
+      Public itinerary version · Last updated: 15 May 2026
     </footer>
   </main>
 </body>
